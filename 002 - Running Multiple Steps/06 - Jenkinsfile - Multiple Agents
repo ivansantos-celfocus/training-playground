@@ -7,7 +7,7 @@ pipeline {
 				sh 'mvn --version'
 			}
 		}
-		stage('maven stage') {
+		stage('node stage') {
 			agent { docker 'node:6.3' } 
 			steps {
 				sh 'npm --version'
