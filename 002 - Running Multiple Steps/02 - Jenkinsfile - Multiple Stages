@@ -5,5 +5,16 @@ pipeline {
 		}
 	}
     stages {
+    	stage('build') {
+    		steps {
+			sh 'date > system_date.txt'
+			sh 'cat system_date.txt'
+		}
+	}
+	stage('test') {
+    		steps {
+			sh 'grep "2021" system_date.txt'
+		}
+	}
     }
 }
