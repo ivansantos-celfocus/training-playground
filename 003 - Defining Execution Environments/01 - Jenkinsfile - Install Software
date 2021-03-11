@@ -1,15 +1,16 @@
 pipeline {
-    agent { 
+	agent { 
 		docker { 
 			image 'alpine:latest' 
 		}
 	}
-    stages {
-        stage('build') {
-            steps {
-            	sh "echo 'You need to install curl'"
-                sh "curl www.google.com"
-            }
-        }
-    }
+	stages {
+		stage('build') {
+			steps {
+				sh "apk --no-cache add curl"
+				sh "echo 'You need to install curl'"
+				sh "curl www.google.com"
+			}
+		}
+	}
 }
