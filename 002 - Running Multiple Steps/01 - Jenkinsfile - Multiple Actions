@@ -1,20 +1,21 @@
 pipeline {
-    agent { 
+	agent { 
 		docker { 
 			image 'alpine:latest' 
 		}
 	}
-    stages {
-    	stage('build') {
-            steps {
-	    	def count = 0
-		while(count < 2) {
-			sh 'date > system_date.txt'
-			sh 'cat system_date.txt'
-			count++;
-			sleep 10
-		}	
-            }
-        }
-    }
+	stages {
+		stage('build') {
+			steps {
+				system_date()
+				sleep 10
+				system_date()
+			}	
+		}
+	}
+}
+
+def system_date() {
+	sh 'date > system_date.txt'
+	sh 'cat system_date.txt'
 }
