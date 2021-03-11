@@ -1,9 +1,27 @@
+
 pipeline {
-    agent { 
-		docker { 
-			image 'alpine:latest' 
+	agent any
+	stages {
+		stage('parallel build stage') {
+			parallel {
+				stage('maven stage') {
+					agent { docker 'maven:3-alpine' } 
+					steps {
+						sh 'mvn --version'
+					}
+				}
+				stage('node stage') {
+					agent { docker 'node:6.3' } 
+					steps {
+						sh 'npm --version'
+					}
+				}
+			}
+		}
+		stage('test') {
+			steps {
+				echo "Executing test stage!"
+			}
 		}
 	}
-    stages {
-    }
 }
