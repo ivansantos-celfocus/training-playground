@@ -17,7 +17,7 @@ pipeline {
 					def buildConfigs = readJSON text: BUILD_CONFIG
 					buildConfigs.each{ buildConfig ->
 						stage("$buildConfig.name") {
-							sh '$buildConfig.command'
+							sh "$buildConfig.command"
 						}
 					}
 				}
