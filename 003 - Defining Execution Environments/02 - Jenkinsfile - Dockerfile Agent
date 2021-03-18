@@ -1,14 +1,10 @@
 pipeline {
 	agent { 
-		dockerfile {
-			filename '02 - Dockerfile - Dockerfile Agent'
-			dir '003 - Defining Execution Environments'
-		}
 	}
 	stages {
 		stage('build') {
 			steps {
-				sh 'curl www.google.com'
+				sh 'if [ "$ENV_VARIABLE" != "Value for execution" ]; then exit 1; fi'
 			}
 		}
 	}
