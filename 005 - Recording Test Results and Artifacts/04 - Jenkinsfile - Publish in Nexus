@@ -21,12 +21,17 @@ pipeline {
 		}
 		stage('publish') {
 			steps {
-				configFileProvider([configFile(fileId: 'settings.xml', targetLocation: 'settings-copy.xml')]) {
-					sh "ls -lrth"
-					sh "mvn deploy \
-							-s settings-copy.xml \
-							-f '005 - Recording Test Results and Artifacts/02 - Java Unit Tests'"
-				}
+				sh "mvn deploy:deploy-file \
+						-s settings-copy.xml \
+						-Durl='http://nexus:8081/repository/maven-releases' \
+						-Dfile='005 - Recording Test Results and Artifacts/02 - Java Unit Tests/target/java-app-1.0.0.jar' \
+						-DrepositoryId='maven-releases' \
+						-Dpackaging=jar \
+						-DgeneratePom=true \
+						-DgeneratePom.description='Gerado' \
+						-DgroupId='training-playground' \
+						-DartifactId='training-playground.java-app' \
+						-Dversion=1.0.0"
 			}
 		}
 	}
