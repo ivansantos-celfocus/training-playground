@@ -1,11 +1,14 @@
 pipeline {
 	agent { 
 		docker { 
-			image 'alpine:latest' 
+			image 'maven:latest' 
 		}
 	}
 	environment { 
-		BUILD_CONFIG = '[{ "name": "build name", "command": "command text" }, { "name": "build name 1", "command": "command text 1" }, { "name": "build name 2", "command": "command text 2" }]'
+		BUILD_CONFIG = '''
+		[{ "name": "java", "command": "javac -version" },
+		{ "name": "maven", "command": "mvn -version" }]
+		'''
 	}
 	stages {
 		stage('build') {
