@@ -1,19 +1,22 @@
 pipeline {
-    agent { 
+	agent { 
 		docker { 
 			image 'alpine:latest' 
 		}
 	}
-    stages {
-        stage('build') {
-            steps {
-                script {
-                	def buildConfigs = []
-                	buildConfigs.each{ buildConfig ->
-                		sh "echo '$buildConfig.name' && $buildConfig.command"
+	environment { 
+		BUILD_CONFIG = '[{ "name": "build name", "command": "command text" }, { "name": "build name 1", "command": "command text 1" }, { "name": "build name 2", "command": "command text 2" }]'
+	}
+	stages {
+		stage('build') {
+			steps {
+				script {
+					def buildConfig = readJSON text: BUILD_CONFIG
+					buildConfigs.each { buildConfig ->
+						sh "echo '$buildConfig.name' && $buildConfig.command"	
 					}
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 }
