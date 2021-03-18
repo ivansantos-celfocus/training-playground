@@ -1,19 +1,27 @@
 pipeline {
-    agent { 
+	agent { 
 		docker { 
-			image 'alpine:latest' 
+			image 'maven:latest' 
 		}
 	}
-    stages {
-        stage('build') {
-            steps {
-                scripts {
-                	def buildConfigs = []
-                	buildConfigs.each{ buildConfig ->
-                		sh "echo '$buildConfig.name' && $buildConfig.command"
+	environment { 
+		BUILD_CONFIG = '''
+		[{ "name": "java", "command": "javac -version" },
+		{ "name": "maven", "command": "mvn -version" }]
+		'''
+	}
+	stages {
+		stage('build') {
+			steps {
+				scripts {
+					def buildConfigs = []
+					buildConfigs.each{ buildConfig ->
+						stage(buildConfig.name) {
+							sh '$buildConfig.command'
+						}
 					}
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 }
