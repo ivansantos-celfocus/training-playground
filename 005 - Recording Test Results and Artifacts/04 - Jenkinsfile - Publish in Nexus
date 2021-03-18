@@ -25,7 +25,7 @@ pipeline {
 					ls -lrth
 					sh "mvn deploy \
 							-s settings-copy.xml \
-							-f '005 - Recording Test Results and Artifacts/02 - Java Unit Tests' \"
+							-f '005 - Recording Test Results and Artifacts/02 - Java Unit Tests'"
 				}
 			}
 		}
