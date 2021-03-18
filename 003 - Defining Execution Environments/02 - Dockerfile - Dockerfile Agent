@@ -1,2 +1,3 @@
 FROM alpine:latest
-RUN apk --update add curl
+ARG ENV_VARIABLE="Error"
+RUN if [ "$ENV_VARIABLE" != "Value for build" ]; then exit 1; fi
