@@ -5,7 +5,6 @@ pipeline {
 			agent { 
 				dockerfile {
 					filename '04 - Jenkinsfile - Maven Dockerfile'
-					dir '003 - Defining Execution Environments'
 				}
 			} 
 			steps {
@@ -16,7 +15,6 @@ pipeline {
 			agent {
 				dockerfile {
 					filename '04 - Jenkinsfile - Node Dockerfile'
-					dir '003 - Defining Execution Environments'
 				}
 			} 
 			steps {
